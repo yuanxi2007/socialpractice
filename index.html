@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>古韵新生 — 皇城相府社会实践</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- ============================================================ -->
+    <!-- 顶部导航栏                                                    -->
+    <!-- ============================================================ -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-inner">
+            <a href="#hero" class="nav-logo">古韵新生</a>
+            <ul class="nav-links">
+                <li><a href="#origin">项目缘起</a></li>
+                <li><a href="#gallery">建筑掠影</a></li>
+                <li><a href="#performance">人文表演</a></li>
+                <li><a href="#details">营造之美</a></li>
+                <li><a href="#reflections">队员感悟</a></li>
+                <li><a href="#about">关于我们</a></li>
+            </ul>
+            <!-- 手机端菜单按钮 -->
+            <button class="nav-toggle" id="navToggle" aria-label="菜单">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- ============================================================ -->
+    <!-- 板块 1：Hero 首屏                                              -->
+    <!-- ============================================================ -->
+    <section class="hero" id="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <!-- 印章装饰 -->
+            <div class="seal-stamp hero-seal">
+                <span>古<br>韵<br>新<br>生</span>
+            </div>
+            <h1 class="hero-title">古韵新生</h1>
+            <p class="hero-subtitle">山西晋城 · 皇城相府 社会实践纪实</p>
+            <div class="hero-date">
+                <span class="date-seal">乙巳年 · 夏</span>
+            </div>
+        </div>
+        <!-- 向下滚动提示 -->
+        <div class="scroll-hint">
+            <span>向下探索</span>
+            <svg class="scroll-arrow" width="24" height="24" viewBox="0 0 24 24">
+                <path d="M12 5v14M5 12l7 7 7-7" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 板块 2：项目缘起                                                -->
+    <!-- ============================================================ -->
+    <section class="section origin" id="origin">
+        <div class="section-inner">
+            <!-- 板块标题 -->
+            <div class="section-header">
+                <span class="section-number">壹</span>
+                <h2 class="section-title">项目缘起</h2>
+                <div class="title-ornament"></div>
+            </div>
+
+            <div class="origin-content">
+                <div class="origin-text">
+                    <!-- ═══════════════════════════════════════════ -->
+                    <!-- 📝 内容槽：Gemini 生成的项目介绍文案           -->
+                    <!-- 用户替换这里的文字即可                        -->
+                    <!-- ═══════════════════════════════════════════ -->
+                    <p class="origin-lead">
+                        皇城相府，位于山西省晋城市阳城县北留镇，是清代名臣陈廷敬的故居，
+                        也是一座集官宅、民居、防御于一体的明清城堡式建筑群。
+                    </p>
+                    <p>
+                        二零二五年盛夏，我们一行<span class="highlight">六人</span>走进这座历经三百余年风雨的古建筑群，
+                        以"古韵新生"为主题，探寻传统建筑的文化密码，思考文化遗产在当代的活化路径。
+                    </p>
+                    <p>
+                        从御书楼的皇家气度，到内城的层楼叠院；从石雕砖雕的精湛工艺，
+                        到地方人文表演的生动传承——我们用镜头记录，用脚步丈量，
+                        试图在古老的砖石之间，找到连接过去与未来的线索。
+                    </p>
+                    <!-- ═══════════════════════════════════════════ -->
+                    <!-- 📝 内容槽结束                                  -->
+                    <!-- ═══════════════════════════════════════════ -->
+                </div>
+                <!-- 装饰印章 -->
+                <div class="seal-stamp origin-seal">
+                    <span>皇<br>城<br>相<br>府</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 板块 3：建筑掠影（交互式图片热点）                              -->
+    <!-- ============================================================ -->
+    <section class="section gallery-hotspot" id="gallery">
+        <div class="section-inner">
+            <div class="section-header">
+                <span class="section-number">贰</span>
+                <h2 class="section-title">建筑掠影</h2>
+                <div class="title-ornament"></div>
+                <p class="section-desc">轻触红点，探寻建筑背后的故事</p>
+            </div>
+
+            <!-- 热点图片查看器 -->
+            <div class="hotspot-viewer" id="hotspotViewer">
+                <!-- 画轴装裱框 -->
+                <div class="scroll-mount">
+                    <div class="scroll-mount-inner">
+                        <div class="hotspot-image-container">
+                            <img
+                                src="images/IMG_20260714_093951.jpg"
+                                alt="皇城相府主入口御书楼与城门"
+                                class="hotspot-main-image"
+                                id="hotspotMainImage"
+                            >
+
+                            <!--
+                              ═══════════════════════════════════════
+                              热点标记 — 来自 Gemini 的坐标和文案
+                              新增热点：复制一个 .hotspot-dot 并设置
+                              style="left: X%; top: Y%;" 即可
+                              ═══════════════════════════════════════
+                            -->
+
+                            <!-- 热点 1：午亭山村匾额 -->
+                            <div
+                                class="hotspot-dot"
+                                style="left: 50%; top: 40%;"
+                                data-hotspot-id="plaque"
+                                aria-label="午亭山村：康熙御笔"
+                            >
+                                <div class="dot-core"></div>
+                                <div class="dot-ripple"></div>
+                                <div class="dot-ripple dot-ripple-delay"></div>
+                                <div class="hotspot-tooltip tooltip-top">
+                                    <div class="tooltip-inner">
+                                        <h4 class="tooltip-title">午亭山村：康熙御笔</h4>
+                                        <p class="tooltip-desc">"午亭"为陈廷敬晚号。以帝王的笔墨为一个臣子的故乡题名，并悬挂于正门之上，在清代历史上极为罕见，是皇权恩宠的最高象征。</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 热点 2：黄琉璃瓦 -->
+                            <div
+                                class="hotspot-dot"
+                                style="left: 50%; top: 22%;"
+                                data-hotspot-id="roof"
+                                aria-label="黄琉璃瓦：僭越与特批"
+                            >
+                                <div class="dot-core"></div>
+                                <div class="dot-ripple"></div>
+                                <div class="dot-ripple dot-ripple-delay"></div>
+                                <div class="hotspot-tooltip tooltip-bottom">
+                                    <div class="tooltip-inner">
+                                        <h4 class="tooltip-title">黄琉璃瓦：僭越与特批</h4>
+                                        <p class="tooltip-desc">在中国古代建筑等级中，黄琉璃瓦通常为皇家专属。皇城相府御书楼能覆此瓦，源于康熙帝的特批，彰显了陈氏家族鼎盛时期的政治地位。</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 热点 3：城门/仪仗 -->
+                            <div
+                                class="hotspot-dot"
+                                style="left: 50%; top: 72%;"
+                                data-hotspot-id="archway"
+                                aria-label="古堡重现：人文仪仗"
+                            >
+                                <div class="dot-core"></div>
+                                <div class="dot-ripple"></div>
+                                <div class="dot-ripple dot-ripple-delay"></div>
+                                <div class="hotspot-tooltip tooltip-left">
+                                    <div class="tooltip-inner">
+                                        <h4 class="tooltip-title">古堡重现：人文仪仗</h4>
+                                        <p class="tooltip-desc">厚重的青砖门洞不仅是物理的防御界限，也是穿越历史的通道。伴随着实景演出，数百年前相府车马喧嚣的鲜活日常在此刻重叠。</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!-- .hotspot-image-container -->
+                    </div><!-- .scroll-mount-inner -->
+                </div><!-- .scroll-mount -->
+
+                <!-- 底部图注 -->
+                <p class="hotspot-caption">
+                    <span class="caption-mark">▲</span> 皇城相府主入口 · 御书楼与城门
+                </p>
+
+                <!-- 缩略图导航（为后续多图预留） -->
+                <div class="hotspot-thumbnails" id="hotspotThumbnails">
+                    <button class="thumb-btn active" data-image="images/IMG_20260714_093951.jpg">
+                        <span class="thumb-label">御书楼 · 正门</span>
+                    </button>
+                    <!-- ═══════════════════════════════════════ -->
+                    <!-- 📝 后续添加更多图片时复制上面的按钮       -->
+                    <!-- ═══════════════════════════════════════ -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 板块：河山楼 · 防御体系透视（蓝图 HUD 风格）                      -->
+    <!-- ============================================================ -->
+    <section class="section blueprint-hud" id="defense">
+        <div class="section-inner">
+            <div class="section-header">
+                <span class="section-number">▸</span>
+                <h2 class="section-title">防御体系</h2>
+                <div class="title-ornament"></div>
+                <p class="section-desc">河山楼 · 古代军事防御工程透视</p>
+            </div>
+
+            <div class="blueprint-viewer">
+                <!-- 蓝图外框 -->
+                <div class="blueprint-frame">
+                    <!-- 四角括号装饰 -->
+                    <span class="bp-corner bp-corner-tl"></span>
+                    <span class="bp-corner bp-corner-tr"></span>
+                    <span class="bp-corner bp-corner-bl"></span>
+                    <span class="bp-corner bp-corner-br"></span>
+
+                    <div class="blueprint-image-container">
+                        <!-- 主图 -->
+                        <img
+                            src="images/河山楼.jpg"
+                            alt="河山楼 — 皇城相府防御堡垒"
+                            class="blueprint-main-image"
+                        >
+
+                        <!-- 暗色遮罩 -->
+                        <div class="blueprint-overlay"></div>
+
+                        <!-- 扫描网格 -->
+                        <div class="blueprint-grid"></div>
+
+                        <!-- 扫描线动画 -->
+                        <div class="blueprint-scanline"></div>
+
+                        <!--
+                          ═══════════════════════════════════════
+                          数据点 — 来自 Gemini 的坐标和防御数据
+                          新增数据点：复制 .bp-data-point 块并设
+                          置 style="left: X%; top: Y%;" 即可
+                          ═══════════════════════════════════════
+                        -->
+
+                        <!-- 数据点 1：塔高 -->
+                        <div
+                            class="bp-data-point"
+                            style="left: 35%; top: 25%;"
+                            data-bp-id="height"
+                        >
+                            <div class="bp-marker"></div>
+                            <div class="bp-line-h"></div>
+                            <div class="bp-panel bp-panel-right">
+                                <div class="bp-panel-header">
+                                    <span class="bp-label">塔高</span>
+                                    <span class="bp-value">七层 / 约30米</span>
+                                </div>
+                                <p class="bp-detail">皇城相府最高建筑，相府之巅，拥有俯瞰全局的绝对视野。</p>
+                            </div>
+                        </div>
+
+                        <!-- 数据点 2：壁垒 -->
+                        <div
+                            class="bp-data-point"
+                            style="left: 35%; top: 45%;"
+                            data-bp-id="structure"
+                        >
+                            <div class="bp-marker"></div>
+                            <div class="bp-line-h"></div>
+                            <div class="bp-panel bp-panel-right">
+                                <div class="bp-panel-header">
+                                    <span class="bp-label">壁垒</span>
+                                    <span class="bp-value">纯砖石砌筑</span>
+                                </div>
+                                <p class="bp-detail">墙体极厚，无钢筋混凝土，历经明末战火与三百年风雨仍巍然不动。</p>
+                            </div>
+                        </div>
+
+                        <!-- 数据点 3：地下给养 -->
+                        <div
+                            class="bp-data-point"
+                            style="left: 35%; top: 65%;"
+                            data-bp-id="survival"
+                        >
+                            <div class="bp-marker"></div>
+                            <div class="bp-line-h"></div>
+                            <div class="bp-panel bp-panel-right">
+                                <div class="bp-panel-header">
+                                    <span class="bp-label">地下给养</span>
+                                    <span class="bp-value">水井与石碾</span>
+                                </div>
+                                <p class="bp-detail">底层设有水井、石碾、石磨，并连通暗道，可供数百族人长期固守避难。</p>
+                            </div>
+                        </div>
+
+                        <!-- 数据点 4：城墙游廊 -->
+                        <div
+                            class="bp-data-point"
+                            style="left: 15%; top: 70%;"
+                            data-bp-id="wall_connection"
+                        >
+                            <div class="bp-marker"></div>
+                            <div class="bp-line-h"></div>
+                            <div class="bp-panel bp-panel-right">
+                                <div class="bp-panel-header">
+                                    <span class="bp-label">城墙游廊</span>
+                                    <span class="bp-value">依山就势</span>
+                                </div>
+                                <p class="bp-detail">高大城墙与河山楼相互呼应，形成立体的交叉火力与巡逻网络。</p>
+                            </div>
+                        </div>
+                    </div><!-- .blueprint-image-container -->
+
+                    <!-- 底部技术铭牌 -->
+                    <div class="blueprint-footer">
+                        <span class="bp-footer-item">河山楼</span>
+                        <span class="bp-footer-divider">//</span>
+                        <span class="bp-footer-item">防御堡垒</span>
+                        <span class="bp-footer-divider">//</span>
+                        <span class="bp-footer-item">明末</span>
+                        <span class="bp-footer-divider">//</span>
+                        <span class="bp-footer-item">砖石结构</span>
+                    </div>
+                </div><!-- .blueprint-frame -->
+
+                <!-- 底部引导提示 -->
+                <p class="hotspot-caption blueprint-caption">
+                    <span class="caption-mark">◆</span> 悬停数据点查看防御功能详情
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 板块：园林景观 · 卷轴画展开 + 竖排文字                            -->
+    <!-- ============================================================ -->
+    <section class="section garden-scroll" id="garden">
+        <div class="section-inner">
+            <div class="section-header">
+                <span class="section-number">▾</span>
+                <h2 class="section-title">园林景观</h2>
+                <div class="title-ornament"></div>
+            </div>
+
+            <div class="scroll-painting-layout">
+                <!-- 卷轴画区域 -->
+                <div class="scroll-painting" id="scrollPainting">
+                    <!-- 上轴杆 -->
+                    <div class="scroll-roller scroll-roller-top">
+                        <div class="roller-knob roller-knob-left"></div>
+                        <div class="roller-knob roller-knob-right"></div>
+                    </div>
+
+                    <!-- 画芯 -->
+                    <div class="scroll-painting-core">
+                        <!-- 绫边 -->
+                        <div class="scroll-silk-border scroll-silk-top"></div>
+
+                        <!-- 画心 + clip-path 展开 -->
+                        <div class="scroll-reveal-clip" id="scrollRevealClip">
+                            <img
+                                src="images/庭院.jpg"
+                                alt="皇城相府庭院园林 — 文人造园"
+                                class="garden-image"
+                            >
+                        </div>
+
+                        <!-- 绫边 -->
+                        <div class="scroll-silk-border scroll-silk-bottom"></div>
+                    </div>
+
+                    <!-- 下轴杆 -->
+                    <div class="scroll-roller scroll-roller-bottom">
+                        <div class="roller-knob roller-knob-left"></div>
+                        <div class="roller-knob roller-knob-right"></div>
+                    </div>
+                </div><!-- .scroll-painting -->
+
+                <!-- 竖排文字区 -->
+                <div class="garden-text-panel" id="gardenTextPanel">
+                    <div class="garden-quote-block">
+                        <p class="garden-quote">「亭者，停也，人所停集也。」</p>
+                    </div>
+                    <div class="garden-title-block">
+                        <h3 class="garden-title">文人造园：铁壁内的诗意退隐</h3>
+                    </div>
+                    <div class="garden-desc-block">
+                        <p class="garden-desc">穿过高墙与重门，相府深处藏着一片截然不同的天地。这座没有威仪、没有雄壮的小亭与园林，是陈氏族人卸下朝堂重任后的休憩之所。三百年前的某个午后，陈廷敬或许也曾在此小坐，看庭院花开花落，望天际云卷云舒。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 板块：古建结构解剖 · 折线标注                                   -->
+    <!-- ============================================================ -->
+    <section class="section anatomy" id="anatomy">
+        <div class="section-inner">
+            <div class="section-header">
+                <span class="section-number">▥</span>
+                <h2 class="section-title">结构解剖</h2>
+                <div class="title-ornament"></div>
+                <p class="section-desc">匠心入微：木结构解剖图鉴</p>
+                <p class="anatomy-hint">中国传统建筑的精髓在于不用一钉一铆。请移动鼠标探索皇城相府屋檐下的结构奥秘。</p>
+            </div>
+
+            <div class="anatomy-viewer" id="anatomyViewer">
+                <!-- 图片 + 标靶 + SVG 连线 -->
+                <div class="anatomy-image-area" id="anatomyImageArea">
+                    <img
+                        src="images/斗拱.jpg"
+                        alt="皇城相府斗拱木结构"
+                        class="anatomy-image"
+                        id="anatomyImage"
+                    >
+
+                    <!-- SVG 折线层 -->
+                    <svg
+                        class="anatomy-svg"
+                        id="anatomySvg"
+                        preserveAspectRatio="none"
+                    >
+                        <!-- 飞椽 -->
+                        <polyline class="anatomy-line" id="line-feichuan" />
+                        <!-- 额枋 -->
+                        <polyline class="anatomy-line" id="line-efang" />
+                        <!-- 斗拱 -->
+                        <polyline class="anatomy-line" id="line-dougong" />
+                    </svg>
+
+                    <!--
+                      ═══════════════════════════════════════
+                      十字标靶 — 来自 Gemini 的坐标
+                      ═══════════════════════════════════════
+                    -->
+
+                    <!-- 飞椽与滴水 (30%, 20%) -->
+                    <div
+                        class="anatomy-marker"
+                        style="left: 30%; top: 20%;"
+                        data-anatomy="feichuan"
+                        aria-label="飞椽与滴水"
+                    >
+                        <span class="am-h"></span>
+                        <span class="am-v"></span>
+                        <span class="am-ring"></span>
+                    </div>
+
+                    <!-- 斗拱 (55%, 30%) -->
+                    <div
+                        class="anatomy-marker"
+                        style="left: 55%; top: 30%;"
+                        data-anatomy="dougong"
+                        aria-label="斗拱"
+                    >
+                        <span class="am-h"></span>
+                        <span class="am-v"></span>
+                        <span class="am-ring"></span>
+                    </div>
+
+                    <!-- 额枋彩画 (40%, 60%) -->
+                    <div
+                        class="anatomy-marker"
+                        style="left: 40%; top: 60%;"
+                        data-anatomy="efang"
+                        aria-label="额枋彩画"
+                    >
+                        <span class="am-h"></span>
+                        <span class="am-v"></span>
+                        <span class="am-ring"></span>
+                    </div>
+
+                    <!-- 放大镜透镜 -->
+                    <div class="anatomy-lens" id="anatomyLens">
+                        <div class="lens-border"></div>
+                        <div class="lens-crosshair"></div>
+                    </div>
+                </div><!-- .anatomy-image-area -->
+
+                <!-- 信息卡片行 -->
+                <div class="anatomy-cards" id="anatomyCards">
+                    <!-- 飞椽卡片 -->
+                    <div class="anatomy-card" data-anatomy="feichuan">
+                        <div class="ac-connector"></div>
+                        <h4 class="ac-term">飞椽与滴水</h4>
+                        <p class="ac-explain">屋檐边缘向外挑出的木条，配合末端的滴水瓦，使屋顶线条呈现出优美的起翘弧度，同时利于排雨水。</p>
+                    </div>
+
+                    <!-- 额枋卡片 -->
+                    <div class="anatomy-card" data-anatomy="efang">
+                        <div class="ac-connector"></div>
+                        <h4 class="ac-term">额枋彩画</h4>
+                        <p class="ac-explain">柱子之间的横向联系构件。隐约可见的彩画（如缠枝纹、龙纹）不仅保护木材防腐，更是古代匠人对审美追求的极致体现。</p>
+                    </div>
+
+                    <!-- 斗拱卡片 -->
+                    <div class="anatomy-card" data-anatomy="dougong">
+                        <div class="ac-connector"></div>
+                        <h4 class="ac-term">斗拱</h4>
+                        <p class="ac-explain">承重与装饰的结合体。层层出挑，将屋顶的巨大重量巧妙地传递到立柱之上，同时展现出清代官式建筑的等级威仪。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 板块 4：人文表演                                                -->
+    <!-- ============================================================ -->
+    <section class="section performance" id="performance">
+        <div class="section-inner">
+            <div class="section-header">
+                <span class="section-number">叁</span>
+                <h2 class="section-title">人文表演</h2>
+                <div class="title-ornament"></div>
+            </div>
+
+            <div class="performance-layout">
+                <!-- 视频区域 -->
+                <div class="performance-video">
+                    <div class="video-wrapper">
+                        <!-- ═══════════════════════════════════════ -->
+                        <!-- 📝 内容槽：替换为实际视频文件路径              -->
+                        <!-- ═══════════════════════════════════════ -->
+                        <div class="video-placeholder">
+                            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <polygon points="5,3 19,12 5,21" fill="currentColor"/>
+                            </svg>
+                            <p>请将视频文件放入 video/ 文件夹<br>并替换此处的 &lt;video&gt; 标签</p>
+                        </div>
+                        <!-- 实际使用时取消下面的注释：
+                        <video controls poster="images/performance/cover.jpg">
+                            <source src="video/performance.mp4" type="video/mp4">
+                            您的浏览器不支持视频播放
+                        </video>
+                        -->
+                    </div>
+                </div>
+
+                <!-- 文字介绍 -->
+                <div class="performance-text">
+                    <!-- ═══════════════════════════════════════════ -->
+                    <!-- 📝 内容槽：Gemini 生成的表演介绍文案              -->
+                    <!-- ═══════════════════════════════════════════ -->
+                    <h3>地方人文表演</h3>
+                    <p>
+                        在皇城相府的庭院中，我们有幸观赏了一场地方人文表演。
+                        演员们身着清代服饰，以传统仪礼再现了陈氏家族的日常生活场景。
+                    </p>
+                    <p>
+                        鼓乐声中，历史仿佛穿越时空而来——绵延数百年的文化记忆，
+                        在青砖灰瓦之间重新焕发生机。这不仅是表演，更是对传统文化
+                        的一种活态传承，让"古韵"在当代获得了"新生"。
+                    </p>
+                    <p>
+                        拍摄时间：2025年夏<br>
+                        地点：皇城相府 · 内城庭院
+                    </p>
+                    <!-- ═══════════════════════════════════════════ -->
+                    <!-- 📝 内容槽结束                                  -->
+                    <!-- ═══════════════════════════════════════════ -->
+                </div>
+            </div>
+
+            <!-- 表演剧照 -->
+            <div class="performance-stills">
+                <div class="still-item"><div class="placeholder-img"><span>剧照 1</span></div></div>
+                <div class="still-item"><div class="placeholder-img"><span>剧照 2</span></div></div>
+                <div class="still-item"><div class="placeholder-img"><span>剧照 3</span></div></div>
+                <div class="still-item"><div class="placeholder-img"><span>剧照 4</span></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 板块 5：营造之美（建筑细节）                                      -->
+    <!-- ============================================================ -->
+    <section class="section details" id="details">
+        <div class="section-inner">
+            <div class="section-header">
+                <span class="section-number">肆</span>
+                <h2 class="section-title">营造之美</h2>
+                <div class="title-ornament"></div>
+                <p class="section-desc">一砖一瓦，一榫一卯，皆是匠心</p>
+            </div>
+
+            <!--
+              ═══════════════════════════════════════════════
+              📝 内容槽：Gemini 识别的建筑构件名称和工艺解说
+              每个 .detail-item 展示一种建筑构件
+              交替左右布局：第一个图左文右，第二个图右文左，以此类推
+              ═══════════════════════════════════════════════
+            -->
+
+            <!-- 构件 1：斗拱 — 图左文右 -->
+            <div class="detail-item">
+                <div class="detail-image">
+                    <div class="placeholder-img detail-placeholder">
+                        <span>📷 斗拱照片</span>
+                    </div>
+                </div>
+                <div class="detail-text">
+                    <span class="detail-tag">木作</span>
+                    <h3>斗拱</h3>
+                    <p>
+                        斗拱是中国古建筑最具代表性的结构构件，位于柱顶与屋梁之间，
+                        通过层层出挑将屋面重量传递至立柱。皇城相府的斗拱采用典型的
+                        清代官式做法，雕饰繁复精美，兼具结构与装饰的双重功能，
+                        体现了"如鸟斯革，如翚斯飞"的建筑意境。
+                    </p>
+                </div>
+            </div>
+
+            <!-- 构件 2：影壁 — 图右文左 -->
+            <div class="detail-item reverse">
+                <div class="detail-image">
+                    <div class="placeholder-img detail-placeholder">
+                        <span>📷 影壁照片</span>
+                    </div>
+                </div>
+                <div class="detail-text">
+                    <span class="detail-tag">砖石</span>
+                    <h3>影壁</h3>
+                    <p>
+                        影壁，又称照壁、萧墙，立于大门内侧或外侧，起屏障视线、
+                        聚气藏风之用。皇城相府的影壁以砖雕为主，常见麒麟、仙鹤等
+                        瑞兽图案，雕刻刀法细腻，寓意吉祥。
+                    </p>
+                </div>
+            </div>
+
+            <!-- 构件 3：门楼 — 图左文右 -->
+            <div class="detail-item">
+                <div class="detail-image">
+                    <div class="placeholder-img detail-placeholder">
+                        <span>📷 门楼照片</span>
+                    </div>
+                </div>
+                <div class="detail-text">
+                    <span class="detail-tag">建筑</span>
+                    <h3>门楼</h3>
+                    <p>
+                        门楼是府邸建筑群的门面所在，皇城相府的门楼高大宏伟，
+                        檐角飞翘，门楣上方悬有匾额。门楼的高低、体量直接反映了
+                        主人的官阶地位，是封建社会等级制度在建筑上的直观体现。
+                    </p>
+                </div>
+            </div>
+
+            <!-- 构件 4：彩画 — 图右文左 -->
+            <div class="detail-item reverse">
+                <div class="detail-image">
+                    <div class="placeholder-img detail-placeholder">
+                        <span>📷 彩画照片</span>
+                    </div>
+                </div>
+                <div class="detail-text">
+                    <span class="detail-tag">装饰</span>
+                    <h3>彩画</h3>
+                    <p>
+                        檐下彩画是清代官式建筑的重要特征。皇城相府的彩画以旋子彩画为主，
+                        青绿冷色调为底，点缀金色线条，历经数百年风雨仍隐约可见当年的
+                        华彩气象。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 板块 6：队员感悟                                                -->
+    <!-- ============================================================ -->
+    <section class="section reflections" id="reflections">
+        <div class="section-inner">
+            <div class="section-header">
+                <span class="section-number">伍</span>
+                <h2 class="section-title">队员感悟</h2>
+                <div class="title-ornament"></div>
+            </div>
+
+            <div class="reflections-grid">
+                <!--
+                  ═══════════════════════════════════════════════
+                  📝 内容槽：Gemini 润色后的队员心得
+                  每张卡片：头像 + 姓名 + 感悟文字
+                  复制 .reflection-card 块即可添加更多队员
+                  ═══════════════════════════════════════════════
+                -->
+
+                <!-- 队员 1 -->
+                <div class="reflection-card">
+                    <div class="reflection-avatar">
+                        <div class="avatar-placeholder">张</div>
+                    </div>
+                    <blockquote>
+                        <p>站在这座三百年历史的院落中，我第一次真切感受到
+                        古建筑不是冰冷的砖石，而是承载着温度与记忆的生命体。</p>
+                    </blockquote>
+                    <cite>— 张同学</cite>
+                </div>
+
+                <!-- 队员 2 -->
+                <div class="reflection-card">
+                    <div class="reflection-avatar">
+                        <div class="avatar-placeholder">李</div>
+                    </div>
+                    <blockquote>
+                        <p>拍摄每一处雕刻细节时我都在想，当年的工匠是以怎样的
+                        心境完成这些作品？他们的名字或许已湮没，但手艺留了下来。</p>
+                    </blockquote>
+                    <cite>— 李同学</cite>
+                </div>
+
+                <!-- 队员 3 -->
+                <div class="reflection-card">
+                    <div class="reflection-avatar">
+                        <div class="avatar-placeholder">王</div>
+                    </div>
+                    <blockquote>
+                        <p>"古韵新生"不仅仅是主题，更是我们此行的答案——
+                        文化遗产的生命力，在于每一代人的重新发现与诠释。</p>
+                    </blockquote>
+                    <cite>— 王同学</cite>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 板块 7：关于我们 / 结尾                                          -->
+    <!-- ============================================================ -->
+    <section class="section about" id="about">
+        <div class="section-inner">
+            <div class="section-header">
+                <span class="section-number">陆</span>
+                <h2 class="section-title">关于我们</h2>
+                <div class="title-ornament"></div>
+            </div>
+
+            <!-- ═══════════════════════════════════════════════ -->
+            <!-- 📝 内容槽：团队信息，替换为实际内容                     -->
+            <!-- ═══════════════════════════════════════════════ -->
+            <div class="about-content">
+                <div class="about-card">
+                    <div class="about-row">
+                        <span class="about-label">团队名称</span>
+                        <span class="about-value">古韵新生实践队</span>
+                    </div>
+                    <div class="about-row">
+                        <span class="about-label">实践地点</span>
+                        <span class="about-value">山西省晋城市阳城县皇城相府</span>
+                    </div>
+                    <div class="about-row">
+                        <span class="about-label">实践时间</span>
+                        <span class="about-value">2025年7月</span>
+                    </div>
+                    <div class="about-row">
+                        <span class="about-label">团队成员</span>
+                        <span class="about-value">张XX、李XX、王XX 等六人</span>
+                    </div>
+                    <div class="about-row">
+                        <span class="about-label">指导老师</span>
+                        <span class="about-value">（请填写）</span>
+                    </div>
+                    <div class="about-row">
+                        <span class="about-label">所属学校</span>
+                        <span class="about-value">（请填写）</span>
+                    </div>
+                </div>
+            </div>
+            <!-- ═══════════════════════════════════════════════ -->
+            <!-- 📝 内容槽结束                                       -->
+            <!-- ═══════════════════════════════════════════════ -->
+
+            <!-- 致谢 -->
+            <div class="acknowledgment">
+                <p>谨此感谢皇城相府管理处对本次实践活动的大力支持</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 页脚                                                         -->
+    <!-- ============================================================ -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-seal">古韵新生</div>
+            <p class="footer-text">
+                &copy; 2025 古韵新生实践队. 文化遗产，薪火相传。
+            </p>
+            <p class="footer-sub">
+                本站为高校社会实践结项成果展示，非商业用途
+            </p>
+        </div>
+    </footer>
+
+    <!-- 回到顶部按钮 -->
+    <button class="back-to-top" id="backToTop" aria-label="回到顶部">
+        <svg width="20" height="20" viewBox="0 0 24 24">
+            <path d="M12 19V5M5 12l7-7 7 7" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </button>
+
+    <!-- JS 脚本 -->
+    <script src="js/main.js"></script>
+</body>
+</html>
