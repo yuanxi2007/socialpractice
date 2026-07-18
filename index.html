@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>古韵新生 — 皇城相府社会实践</title>
     <link rel="stylesheet" href="css/style.css">
+    <!-- GSAP + ScrollTrigger -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 </head>
 <body>
 
@@ -18,8 +21,7 @@
                 <li><a href="#origin">项目缘起</a></li>
                 <li><a href="#gallery">建筑掠影</a></li>
                 <li><a href="#performance">人文表演</a></li>
-                <li><a href="#details">营造之美</a></li>
-                <li><a href="#reflections">队员感悟</a></li>
+                <li><a href="#matrix">相府元宇宙</a></li>
                 <li><a href="#about">关于我们</a></li>
             </ul>
             <!-- 手机端菜单按钮 -->
@@ -515,272 +517,178 @@
     </section>
 
     <!-- ============================================================ -->
-    <!-- 板块 4：人文表演                                                -->
+    <!-- 板块 4：人文表演 · Scrollytelling 滚动叙事                       -->
     <!-- ============================================================ -->
-    <section class="section performance" id="performance">
-        <div class="section-inner">
-            <div class="section-header">
-                <span class="section-number">叁</span>
-                <h2 class="section-title">人文表演</h2>
-                <div class="title-ornament"></div>
-            </div>
+    <section class="section scrolly-section" id="performance">
+        <!-- Sticky 全屏视频背景 -->
+        <div class="scrolly-video-wrap" id="scrollyVideoWrap">
+            <video
+                id="scrollyVideo"
+                muted
+                autoplay
+                loop
+                playsinline
+                preload="auto"
+            >
+                <source src="video/HnVideoEditor_2026_07_18_133036499.mp4" type="video/mp4">
+                您的浏览器不支持视频播放
+            </video>
+            <!-- 半透明暗色遮罩 -->
+            <div class="scrolly-overlay" id="scrollyOverlay"></div>
+        </div>
 
-            <div class="performance-layout">
-                <!-- 视频区域 -->
-                <div class="performance-video">
-                    <div class="video-wrapper">
-                        <!-- ═══════════════════════════════════════ -->
-                        <!-- 📝 内容槽：替换为实际视频文件路径              -->
-                        <!-- ═══════════════════════════════════════ -->
-                        <div class="video-placeholder">
-                            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                                <polygon points="5,3 19,12 5,21" fill="currentColor"/>
-                            </svg>
-                            <p>请将视频文件放入 video/ 文件夹<br>并替换此处的 &lt;video&gt; 标签</p>
-                        </div>
-                        <!-- 实际使用时取消下面的注释：
-                        <video controls poster="images/performance/cover.jpg">
-                            <source src="video/performance.mp4" type="video/mp4">
-                            您的浏览器不支持视频播放
-                        </video>
-                        -->
-                    </div>
-                </div>
-
-                <!-- 文字介绍 -->
-                <div class="performance-text">
-                    <!-- ═══════════════════════════════════════════ -->
-                    <!-- 📝 内容槽：Gemini 生成的表演介绍文案              -->
-                    <!-- ═══════════════════════════════════════════ -->
-                    <h3>地方人文表演</h3>
-                    <p>
-                        在皇城相府的庭院中，我们有幸观赏了一场地方人文表演。
-                        演员们身着清代服饰，以传统仪礼再现了陈氏家族的日常生活场景。
-                    </p>
-                    <p>
-                        鼓乐声中，历史仿佛穿越时空而来——绵延数百年的文化记忆，
-                        在青砖灰瓦之间重新焕发生机。这不仅是表演，更是对传统文化
-                        的一种活态传承，让"古韵"在当代获得了"新生"。
-                    </p>
-                    <p>
-                        拍摄时间：2025年夏<br>
-                        地点：皇城相府 · 内城庭院
-                    </p>
-                    <!-- ═══════════════════════════════════════════ -->
-                    <!-- 📝 内容槽结束                                  -->
-                    <!-- ═══════════════════════════════════════════ -->
+        <!-- 滚动卡片容器 -->
+        <div class="scrolly-cards-wrap" id="scrollyCardsWrap">
+            <!-- 标题引言（首个视口） -->
+            <div class="scrolly-title-plate">
+                <span class="section-number scrolly-section-num">叁</span>
+                <h2 class="section-title scrolly-section-title">人文表演</h2>
+                <div class="title-ornament scrolly-ornament"></div>
+                <p class="scrolly-subtitle">《迎圣驾》· 大型实景演出</p>
+                <p class="scrolly-title-hint">向下滚动，跟随叙事</p>
+                <div class="scrolly-scroll-indicator">
+                    <svg width="20" height="20" viewBox="0 0 24 24">
+                        <path d="M12 5v14M5 12l7 7 7-7" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
                 </div>
             </div>
 
-            <!-- 表演剧照 -->
-            <div class="performance-stills">
-                <div class="still-item"><div class="placeholder-img"><span>剧照 1</span></div></div>
-                <div class="still-item"><div class="placeholder-img"><span>剧照 2</span></div></div>
-                <div class="still-item"><div class="placeholder-img"><span>剧照 3</span></div></div>
-                <div class="still-item"><div class="placeholder-img"><span>剧照 4</span></div></div>
+            <!-- 卡片 1：序幕 · 净水泼街 | 00:00~01:30 -->
+            <div class="scrolly-card" data-time="0">
+                <div class="scrolly-card-inner">
+                    <span class="card-chapter">序幕</span>
+                    <h3 class="card-title">净水泼街</h3>
+                    <p class="card-text">相府门前，锣鼓开道。仆人列队而出，肃穆以待钦差的降临。第一声锣响，敲开了沉封三百年的时光之门。</p>
+                </div>
             </div>
+
+            <!-- 卡片 2：起承 · 名相出府 | 01:30~03:15 -->
+            <div class="scrolly-card" data-time="90">
+                <div class="scrolly-card-inner">
+                    <span class="card-chapter">起承</span>
+                    <h3 class="card-title">名相出府</h3>
+                    <p class="card-text">钟鸣鼎食，百官列阵。一代名相陈廷敬携全族老幼步出府门。视线的层层递进中，展现的是清代大员的威仪与传统士大夫的克己。</p>
+                </div>
+            </div>
+
+            <!-- 卡片 3：高潮 · 帝王恩宠 | 07:30 -->
+            <div class="scrolly-card" data-time="450">
+                <div class="scrolly-card-inner">
+                    <span class="card-chapter">高潮</span>
+                    <h3 class="card-title">帝王恩宠</h3>
+                    <p class="card-text">銮驾降临，唢呐齐鸣。康熙帝御赐"午亭山村"牌匾。以帝王之笔为臣子故里命名，在清代历史上绝无仅有，君臣相知的千古佳话在此刻达到顶峰。</p>
+                </div>
+            </div>
+
+            <!-- 卡片 4：尾声 · 步入历史 | 结尾（过渡出口） -->
+            <div class="scrolly-card scrolly-card--exit" data-time="end">
+                <div class="scrolly-card-inner">
+                    <span class="card-chapter">尾声</span>
+                    <h3 class="card-title">步入历史</h3>
+                    <p class="card-text">跟随圣驾的脚步，跨过高高的门槛。让我们一同深入相府，探寻砖瓦背后的盛世回声……</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 声音开关按钮 -->
+        <button class="audio-toggle" id="audioToggle" aria-label="声音开关">
+            <svg class="audio-icon audio-icon--muted" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                <line x1="23" y1="9" x2="17" y2="15"/>
+                <line x1="17" y1="9" x2="23" y2="15"/>
+            </svg>
+            <svg class="audio-icon audio-icon--unmuted" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+                <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+            </svg>
+            <span class="audio-label">开启原声</span>
+            <span class="audio-sublabel">唢呐/锣鼓</span>
+        </button>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 板块 5：相府元宇宙 · 时空跃迁沙盘漫游                              -->
+    <!-- ============================================================ -->
+    <section class="section matrix-section" id="matrix">
+
+        <!-- GSAP 固定的视窗容器 -->
+        <div class="matrix-viewport" id="matrixViewport">
+
+            <!-- 图层 1：卫星地图 -->
+            <div class="matrix-layer matrix-satellite">
+                <img src="images/卫星地图.png" alt="卫星地图">
+            </div>
+
+            <!-- 图层 2：旅游地图叠层 -->
+            <div class="matrix-layer matrix-map-overlay" id="matrixMapOverlay">
+                <img src="images/旅游地图.png" alt="旅游地图">
+            </div>
+
+            <!-- 图层 3：全景图 -->
+            <div class="matrix-layer matrix-panorama" id="matrixPanorama">
+                <img src="images/全景.jpg" alt="全景">
+            </div>
+
+            <!-- 板块标题（浮于图层上方） -->
+            <div class="matrix-header" id="matrixHeader">
+                <span class="section-number matrix-section-num">肆</span>
+                <h2 class="section-title matrix-section-title">相府元宇宙</h2>
+                <div class="title-ornament matrix-ornament"></div>
+                <p class="matrix-subtitle">时空跃迁 · 沙盘漫游</p>
+            </div>
+
+            <!-- 向下滚动提示 -->
+            <div class="matrix-scroll-hint" id="matrixScrollHint">
+                <span>向下滚动 · 开启跃迁</span>
+                <svg width="20" height="20" viewBox="0 0 24 24">
+                    <path d="M12 5v14M5 12l7 7 7-7" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+        </div>
+
+        <!-- 雷达小地图（阶段三出现） -->
+        <div class="matrix-minimap" id="matrixMinimap">
+            <div class="minimap-frame">
+                <img src="images/旅游地图.png" alt="雷达小地图">
+                <!-- 十字准星 -->
+                <div class="minimap-crosshair"></div>
+            </div>
+            <span class="minimap-label">雷达小地图</span>
         </div>
     </section>
 
     <!-- ============================================================ -->
-    <!-- 板块 5：营造之美（建筑细节）                                      -->
-    <!-- ============================================================ -->
-    <section class="section details" id="details">
-        <div class="section-inner">
-            <div class="section-header">
-                <span class="section-number">肆</span>
-                <h2 class="section-title">营造之美</h2>
-                <div class="title-ornament"></div>
-                <p class="section-desc">一砖一瓦，一榫一卯，皆是匠心</p>
-            </div>
-
-            <!--
-              ═══════════════════════════════════════════════
-              📝 内容槽：Gemini 识别的建筑构件名称和工艺解说
-              每个 .detail-item 展示一种建筑构件
-              交替左右布局：第一个图左文右，第二个图右文左，以此类推
-              ═══════════════════════════════════════════════
-            -->
-
-            <!-- 构件 1：斗拱 — 图左文右 -->
-            <div class="detail-item">
-                <div class="detail-image">
-                    <div class="placeholder-img detail-placeholder">
-                        <span>📷 斗拱照片</span>
-                    </div>
-                </div>
-                <div class="detail-text">
-                    <span class="detail-tag">木作</span>
-                    <h3>斗拱</h3>
-                    <p>
-                        斗拱是中国古建筑最具代表性的结构构件，位于柱顶与屋梁之间，
-                        通过层层出挑将屋面重量传递至立柱。皇城相府的斗拱采用典型的
-                        清代官式做法，雕饰繁复精美，兼具结构与装饰的双重功能，
-                        体现了"如鸟斯革，如翚斯飞"的建筑意境。
-                    </p>
-                </div>
-            </div>
-
-            <!-- 构件 2：影壁 — 图右文左 -->
-            <div class="detail-item reverse">
-                <div class="detail-image">
-                    <div class="placeholder-img detail-placeholder">
-                        <span>📷 影壁照片</span>
-                    </div>
-                </div>
-                <div class="detail-text">
-                    <span class="detail-tag">砖石</span>
-                    <h3>影壁</h3>
-                    <p>
-                        影壁，又称照壁、萧墙，立于大门内侧或外侧，起屏障视线、
-                        聚气藏风之用。皇城相府的影壁以砖雕为主，常见麒麟、仙鹤等
-                        瑞兽图案，雕刻刀法细腻，寓意吉祥。
-                    </p>
-                </div>
-            </div>
-
-            <!-- 构件 3：门楼 — 图左文右 -->
-            <div class="detail-item">
-                <div class="detail-image">
-                    <div class="placeholder-img detail-placeholder">
-                        <span>📷 门楼照片</span>
-                    </div>
-                </div>
-                <div class="detail-text">
-                    <span class="detail-tag">建筑</span>
-                    <h3>门楼</h3>
-                    <p>
-                        门楼是府邸建筑群的门面所在，皇城相府的门楼高大宏伟，
-                        檐角飞翘，门楣上方悬有匾额。门楼的高低、体量直接反映了
-                        主人的官阶地位，是封建社会等级制度在建筑上的直观体现。
-                    </p>
-                </div>
-            </div>
-
-            <!-- 构件 4：彩画 — 图右文左 -->
-            <div class="detail-item reverse">
-                <div class="detail-image">
-                    <div class="placeholder-img detail-placeholder">
-                        <span>📷 彩画照片</span>
-                    </div>
-                </div>
-                <div class="detail-text">
-                    <span class="detail-tag">装饰</span>
-                    <h3>彩画</h3>
-                    <p>
-                        檐下彩画是清代官式建筑的重要特征。皇城相府的彩画以旋子彩画为主，
-                        青绿冷色调为底，点缀金色线条，历经数百年风雨仍隐约可见当年的
-                        华彩气象。
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================================ -->
-    <!-- 板块 6：队员感悟                                                -->
-    <!-- ============================================================ -->
-    <section class="section reflections" id="reflections">
-        <div class="section-inner">
-            <div class="section-header">
-                <span class="section-number">伍</span>
-                <h2 class="section-title">队员感悟</h2>
-                <div class="title-ornament"></div>
-            </div>
-
-            <div class="reflections-grid">
-                <!--
-                  ═══════════════════════════════════════════════
-                  📝 内容槽：Gemini 润色后的队员心得
-                  每张卡片：头像 + 姓名 + 感悟文字
-                  复制 .reflection-card 块即可添加更多队员
-                  ═══════════════════════════════════════════════
-                -->
-
-                <!-- 队员 1 -->
-                <div class="reflection-card">
-                    <div class="reflection-avatar">
-                        <div class="avatar-placeholder">张</div>
-                    </div>
-                    <blockquote>
-                        <p>站在这座三百年历史的院落中，我第一次真切感受到
-                        古建筑不是冰冷的砖石，而是承载着温度与记忆的生命体。</p>
-                    </blockquote>
-                    <cite>— 张同学</cite>
-                </div>
-
-                <!-- 队员 2 -->
-                <div class="reflection-card">
-                    <div class="reflection-avatar">
-                        <div class="avatar-placeholder">李</div>
-                    </div>
-                    <blockquote>
-                        <p>拍摄每一处雕刻细节时我都在想，当年的工匠是以怎样的
-                        心境完成这些作品？他们的名字或许已湮没，但手艺留了下来。</p>
-                    </blockquote>
-                    <cite>— 李同学</cite>
-                </div>
-
-                <!-- 队员 3 -->
-                <div class="reflection-card">
-                    <div class="reflection-avatar">
-                        <div class="avatar-placeholder">王</div>
-                    </div>
-                    <blockquote>
-                        <p>"古韵新生"不仅仅是主题，更是我们此行的答案——
-                        文化遗产的生命力，在于每一代人的重新发现与诠释。</p>
-                    </blockquote>
-                    <cite>— 王同学</cite>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================================ -->
-    <!-- 板块 7：关于我们 / 结尾                                          -->
+    <!-- 板块 6：关于我们                                                -->
     <!-- ============================================================ -->
     <section class="section about" id="about">
         <div class="section-inner">
             <div class="section-header">
-                <span class="section-number">陆</span>
+                <span class="section-number">伍</span>
                 <h2 class="section-title">关于我们</h2>
                 <div class="title-ornament"></div>
             </div>
 
-            <!-- ═══════════════════════════════════════════════ -->
-            <!-- 📝 内容槽：团队信息，替换为实际内容                     -->
-            <!-- ═══════════════════════════════════════════════ -->
             <div class="about-content">
                 <div class="about-card">
                     <div class="about-row">
                         <span class="about-label">团队名称</span>
-                        <span class="about-value">古韵新生实践队</span>
+                        <span class="about-value">晋韵数脉</span>
                     </div>
                     <div class="about-row">
                         <span class="about-label">实践地点</span>
-                        <span class="about-value">山西省晋城市阳城县皇城相府</span>
+                        <span class="about-value">山西省晋城市皇城相府景区</span>
                     </div>
                     <div class="about-row">
                         <span class="about-label">实践时间</span>
                         <span class="about-value">2025年7月</span>
                     </div>
                     <div class="about-row">
-                        <span class="about-label">团队成员</span>
-                        <span class="about-value">张XX、李XX、王XX 等六人</span>
-                    </div>
-                    <div class="about-row">
-                        <span class="about-label">指导老师</span>
-                        <span class="about-value">（请填写）</span>
-                    </div>
-                    <div class="about-row">
                         <span class="about-label">所属学校</span>
-                        <span class="about-value">（请填写）</span>
+                        <span class="about-value">东南大学</span>
                     </div>
                 </div>
             </div>
-            <!-- ═══════════════════════════════════════════════ -->
-            <!-- 📝 内容槽结束                                       -->
-            <!-- ═══════════════════════════════════════════════ -->
 
             <!-- 致谢 -->
             <div class="acknowledgment">

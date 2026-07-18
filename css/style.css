@@ -1771,11 +1771,6 @@ ul {
     min-height: 200px;
 }
 
-.detail-placeholder {
-    min-height: 280px;
-    background: linear-gradient(135deg, #8b8682 0%, #5a5652 100%);
-}
-
 /* ----------------------------------------------------------
    灯箱
    ---------------------------------------------------------- */
@@ -1872,266 +1867,445 @@ ul {
     line-height: 1.8;
 }
 
-/* ----------------------------------------------------------
-   板块 4：人文表演
-   ---------------------------------------------------------- */
-.performance {
-    background:
-        linear-gradient(
-            to bottom,
-            var(--paper) 0%,
-            var(--paper-dark) 100%
-        );
+/* ============================================================
+   板块 4：人文表演 · Scrollytelling 滚动叙事
+   ============================================================ */
+
+/* ---- 板块容器 ---- */
+.scrolly-section {
+    position: relative;
+    padding: 0;
+    margin: 0;
+    background: #000;
 }
 
-.performance-layout {
-    display: grid;
-    grid-template-columns: 1.2fr 0.8fr;
-    gap: 3rem;
-    align-items: start;
-    margin-bottom: 2.5rem;
-}
-
-.video-wrapper {
-    aspect-ratio: 16 / 9;
-    background: #1a1816;
-    border-radius: 2px;
+/* ---- Sticky 全屏视频背景 ---- */
+.scrolly-video-wrap {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 0;
     overflow: hidden;
 }
 
-.video-wrapper video {
+.scrolly-video-wrap video {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    display: block;
 }
 
-.video-placeholder {
-    width: 100%;
-    height: 100%;
+/* 暗色遮罩 */
+.scrolly-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: rgba(0, 0, 0, 0.4);
+    transition: background 0.8s var(--ease-out);
+}
+
+/* 卡片4进入时加深遮罩 */
+.scrolly-overlay.darken {
+    background: rgba(0, 0, 0, 0.72);
+}
+
+/* ---- 滚动卡片外层 ---- */
+.scrolly-cards-wrap {
+    position: relative;
+    z-index: 2;
+}
+
+/* ---- 标题引言板 ---- */
+.scrolly-title-plate {
+    min-height: 85vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 1rem;
-    color: rgba(255, 255, 255, 0.5);
-    font-size: 0.85rem;
     text-align: center;
+    padding: 2rem;
+    color: #fff;
 }
 
-.performance-text {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+.scrolly-section-num {
+    color: rgba(255, 255, 255, 0.45) !important;
 }
 
-.performance-text h3 {
+.scrolly-section-title {
+    color: #fff !important;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+}
+
+.scrolly-ornament {
+    background: linear-gradient(
+        to right,
+        transparent,
+        rgba(255, 255, 255, 0.6),
+        transparent
+    ) !important;
+}
+
+.scrolly-ornament::after {
+    background: transparent !important;
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.scrolly-subtitle {
     font-family: var(--font-title);
-    font-size: 1.4rem;
-    margin-bottom: 1.2rem;
-    color: var(--vermillion);
-    letter-spacing: 0.1em;
+    font-size: 1.15rem;
+    color: rgba(255, 255, 255, 0.75);
+    letter-spacing: 0.12em;
+    margin-top: 1rem;
 }
 
-.performance-text p {
-    margin-bottom: 0.8rem;
-    line-height: 1.9;
-    color: #3a3632;
-    font-size: 0.95rem;
-}
-
-/* 剧照 */
-.performance-stills {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1rem;
-}
-
-.still-item {
-    aspect-ratio: 4 / 3;
-    border-radius: 2px;
-    overflow: hidden;
-    transition: transform 0.3s var(--ease-out);
-}
-
-.still-item:hover {
-    transform: scale(1.03);
-}
-
-.still-item .placeholder-img {
-    background: linear-gradient(135deg, #8b8682 0%, #5a5652 100%);
-    min-height: 0;
-    font-size: 0.8rem;
-}
-
-.still-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-/* ----------------------------------------------------------
-   板块 5：营造之美
-   ---------------------------------------------------------- */
-.details {
-    background-color: var(--paper);
-}
-
-.detail-item {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    align-items: center;
-    margin-bottom: 4rem;
-}
-
-.detail-item:last-child {
-    margin-bottom: 0;
-}
-
-.detail-item.reverse .detail-image {
-    order: 2;
-}
-
-.detail-item.reverse .detail-text {
-    order: 1;
-}
-
-.detail-image {
-    border-radius: 2px;
-    overflow: hidden;
-    box-shadow: 0 4px 20px rgba(44, 44, 44, 0.1);
-}
-
-.detail-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    aspect-ratio: 4 / 3;
-}
-
-.detail-tag {
-    display: inline-block;
-    font-size: 0.75rem;
+.scrolly-title-hint {
+    font-size: 0.82rem;
+    color: rgba(255, 255, 255, 0.45);
     letter-spacing: 0.15em;
-    color: var(--stone);
-    border: 1px solid #d4cec5;
-    padding: 0.2em 0.8em;
-    margin-bottom: 0.8rem;
+    margin-top: 2.5rem;
+    animation: scrollyFadeHint 2.5s ease-in-out infinite;
 }
 
-.detail-text h3 {
+@keyframes scrollyFadeHint {
+    0%, 100% { opacity: 0.35; }
+    50%      { opacity: 0.85; }
+}
+
+.scrolly-scroll-indicator {
+    margin-top: 0.8rem;
+    color: rgba(255, 255, 255, 0.4);
+    animation: floatArrow 2s ease-in-out infinite;
+}
+
+/* ---- 叙事卡片 ---- */
+.scrolly-card {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 2rem;
+}
+
+/* 出口卡片加高，延长过渡区 */
+.scrolly-card--exit {
+    min-height: 130vh;
+    align-items: flex-start;
+    padding-top: 25vh;
+}
+
+/* 毛玻璃卡片 */
+.scrolly-card-inner {
+    background: rgba(255, 255, 255, 0.10);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 10px;
+    padding: 2.8rem 2.5rem;
+    max-width: 520px;
+    width: 100%;
+    text-align: center;
+    color: #fff;
+    transition: transform 0.4s var(--ease-out),
+                box-shadow 0.4s var(--ease-out),
+                background 0.4s var(--ease-out);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+}
+
+/* 卡片进入视口中心时微亮 */
+.scrolly-card.active .scrolly-card-inner {
+    background: rgba(255, 255, 255, 0.16);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow:
+        0 12px 40px rgba(0, 0, 0, 0.35),
+        0 0 60px rgba(184, 160, 102, 0.08);
+    transform: translateY(-4px);
+}
+
+/* 卡片章节标签 */
+.card-chapter {
+    display: inline-block;
+    font-family: var(--font-decorative);
+    font-size: 0.95rem;
+    color: var(--gold);
+    border: 1px solid rgba(184, 160, 102, 0.45);
+    padding: 0.2em 1em;
+    letter-spacing: 0.15em;
+    margin-bottom: 1rem;
+}
+
+/* 卡片标题 */
+.card-title {
     font-family: var(--font-title);
     font-size: 2rem;
     font-weight: 700;
-    margin-bottom: 1rem;
-    color: var(--ink);
-    letter-spacing: 0.1em;
+    letter-spacing: 0.12em;
+    margin-bottom: 1.2rem;
+    color: #fff;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
-.detail-text p {
-    line-height: 1.9;
-    color: #3a3632;
+/* 卡片正文 */
+.card-text {
+    font-size: 0.98rem;
+    line-height: 2;
+    color: rgba(255, 255, 255, 0.82);
+    letter-spacing: 0.05em;
 }
 
-/* ----------------------------------------------------------
-   板块 6：队员感悟
-   ---------------------------------------------------------- */
-.reflections {
-    background:
-        linear-gradient(
-            to bottom,
-            var(--paper) 0%,
-            var(--paper-dark) 50%,
-            var(--paper) 100%
-        );
+/* ---- 声音开关按钮 ---- */
+.audio-toggle {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.85rem 1rem;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 14px;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.35s var(--ease-out);
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
-.reflections-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
+.audio-toggle:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.35);
+    transform: translateY(-2px);
 }
 
-.reflection-card {
-    background: #fff;
-    padding: 2.5rem 2rem;
-    border-radius: 2px;
-    text-align: center;
-    box-shadow: 0 2px 12px rgba(44, 44, 44, 0.05);
-    transition: transform 0.4s var(--ease-out),
-                box-shadow 0.4s var(--ease-out);
+/* 默认显示静音图标，隐藏音量图标 */
+.audio-icon--unmuted {
+    display: none;
+}
+
+/* 开启声音后切换图标 */
+.audio-toggle.unmuted .audio-icon--muted {
+    display: none;
+}
+.audio-toggle.unmuted .audio-icon--unmuted {
+    display: block;
+    color: var(--gold);
+}
+
+.audio-label {
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+}
+
+.audio-sublabel {
+    font-size: 0.68rem;
+    opacity: 0.6;
+    letter-spacing: 0.04em;
+}
+
+.audio-toggle.unmuted .audio-label {
+    color: var(--gold);
+}
+
+/* ============================================================
+   板块：相府元宇宙 · 时空跃迁沙盘漫游
+   ============================================================ */
+
+/* ---- 板块容器 ---- */
+.matrix-section {
     position: relative;
+    padding: 0;
+    margin: 0;
+    background: #000;
 }
 
-.reflection-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 28px rgba(44, 44, 44, 0.1);
+/* ---- GSAP 固定的视窗 ---- */
+.matrix-viewport {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
 }
 
-/* 卡片上方装饰线 */
-.reflection-card::before {
-    content: '';
+/* ---- 图层通用 ---- */
+.matrix-layer {
     position: absolute;
-    top: 0;
+    inset: 0;
+    will-change: transform, opacity;
+}
+
+.matrix-layer img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* 卫星图初始：默认可见（GSAP 降级 & 首屏兜底） */
+.matrix-satellite {
+    opacity: 1;
+}
+
+/* 旅游地图叠层：初始透明 */
+.matrix-map-overlay {
+    opacity: 0;
+}
+
+/* 全景图层：初始透明 */
+.matrix-panorama {
+    opacity: 0;
+}
+
+/* ---- 板块标题浮层 ---- */
+.matrix-header {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    text-align: center;
+    pointer-events: none;
+    transition: opacity 0.3s;
+}
+
+.matrix-section-num {
+    color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.matrix-section-title {
+    color: #fff !important;
+    text-shadow: 0 2px 16px rgba(0, 0, 0, 0.5);
+}
+
+.matrix-ornament {
+    background: linear-gradient(
+        to right,
+        transparent,
+        rgba(255, 255, 255, 0.5),
+        transparent
+    ) !important;
+}
+
+.matrix-ornament::after {
+    background: transparent !important;
+    color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.matrix-subtitle {
+    font-family: var(--font-title);
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.7);
+    letter-spacing: 0.15em;
+    margin-top: 1rem;
+}
+
+/* ---- 向下滚动提示 ---- */
+.matrix-scroll-hint {
+    position: absolute;
+    bottom: 2.5rem;
     left: 50%;
     transform: translateX(-50%);
-    width: 40px;
-    height: 3px;
-    background: var(--vermillion);
-    opacity: 0.6;
-}
-
-.reflection-avatar {
-    margin-bottom: 1.5rem;
-}
-
-.avatar-placeholder {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background: var(--vermillion-light);
-    color: var(--vermillion);
-    display: inline-flex;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    font-family: var(--font-decorative);
-    font-size: 1.5rem;
+    gap: 0.5rem;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.82rem;
+    letter-spacing: 0.12em;
+    pointer-events: none;
+    animation: float 2s ease-in-out infinite;
 }
 
-.reflection-card blockquote {
-    margin-bottom: 1.2rem;
+/* ---- 雷达小地图（初始隐藏，阶段三出现）---- */
+.matrix-minimap {
+    position: fixed;
+    bottom: 24px;
+    left: 24px;
+    z-index: 500;
+    opacity: 0;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
 }
 
-.reflection-card blockquote p {
-    font-size: 0.95rem;
-    line-height: 1.9;
-    color: #3a3632;
+.minimap-frame {
     position: relative;
+    width: 220px;
+    height: 150px;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 2px solid rgba(255, 255, 255, 0.35);
+    background: rgba(10, 20, 40, 0.5);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.45),
+        0 0 0 1px rgba(255, 255, 255, 0.08) inset,
+        0 0 20px rgba(0, 188, 212, 0.1);
+    cursor: crosshair;
+    transition: box-shadow 0.4s;
 }
 
-/* 中文引号装饰 */
-.reflection-card blockquote p::before {
-    content: '『';
-    color: var(--vermillion);
-    opacity: 0.4;
-    font-size: 1.2rem;
-    margin-right: 0.1em;
+.minimap-frame:hover {
+    box-shadow:
+        0 12px 40px rgba(0, 0, 0, 0.55),
+        0 0 0 1px rgba(255, 255, 255, 0.12) inset,
+        0 0 30px rgba(0, 188, 212, 0.2);
+    border-color: rgba(255, 255, 255, 0.55);
 }
 
-.reflection-card blockquote p::after {
-    content: '』';
-    color: var(--vermillion);
-    opacity: 0.4;
-    font-size: 1.2rem;
-    margin-left: 0.1em;
+.minimap-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    opacity: 0.9;
 }
 
-.reflection-card cite {
-    font-family: var(--font-title);
-    font-size: 0.85rem;
-    font-style: normal;
-    color: var(--stone);
+/* 十字准星 */
+.minimap-crosshair {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.minimap-crosshair::before,
+.minimap-crosshair::after {
+    content: '';
+    position: absolute;
+    background: rgba(0, 188, 212, 0.4);
+}
+
+.minimap-crosshair::before {
+    top: 50%;
+    left: 12px;
+    right: 12px;
+    height: 1px;
+    transform: translateY(-50%);
+}
+
+.minimap-crosshair::after {
+    left: 50%;
+    top: 12px;
+    bottom: 12px;
+    width: 1px;
+    transform: translateX(-50%);
+}
+
+.minimap-label {
+    font-size: 0.65rem;
+    color: rgba(255, 255, 255, 0.5);
     letter-spacing: 0.1em;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
 }
 
 /* ----------------------------------------------------------
@@ -2307,25 +2481,25 @@ ul {
     .dot-core { width: 8px; height: 8px; }
     .dot-ripple { width: 20px; height: 20px; }
 
-    .performance-layout {
-        grid-template-columns: 1fr;
-        gap: 2rem;
+    /* 平板端 scrollytelling */
+    .scrolly-card-inner {
+        max-width: 440px;
+        padding: 2rem 1.8rem;
+    }
+    .card-title { font-size: 1.6rem; }
+    .card-text  { font-size: 0.9rem; }
+    .audio-toggle {
+        bottom: 1.5rem;
+        right: 1.5rem;
+        padding: 0.7rem 0.85rem;
     }
 
-    .performance-stills {
-        grid-template-columns: repeat(2, 1fr);
+    /* 平板端 相府元宇宙 */
+    .minimap-frame {
+        width: 180px;
+        height: 125px;
     }
-
-    .detail-item,
-    .detail-item.reverse {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-    }
-
-    .detail-item.reverse .detail-image,
-    .detail-item.reverse .detail-text {
-        order: 0;
-    }
+    .matrix-subtitle { font-size: 0.9rem; }
 
     .reflections-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -2474,9 +2648,48 @@ ul {
         grid-template-columns: 1fr;
     }
 
-    .performance-stills {
-        grid-template-columns: repeat(2, 1fr);
+    /* 手机端 scrollytelling */
+    .scrolly-title-plate {
+        min-height: 70vh;
+        padding: 1.5rem 1rem;
     }
+    .scrolly-subtitle {
+        font-size: 0.95rem;
+    }
+    .scrolly-card {
+        min-height: 90vh;
+        padding: 2rem 1rem;
+    }
+    .scrolly-card--exit {
+        min-height: 110vh;
+        padding-top: 18vh;
+    }
+    .scrolly-card-inner {
+        max-width: 100%;
+        padding: 1.6rem 1.2rem;
+        border-radius: 8px;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+    }
+    .card-title { font-size: 1.4rem; }
+    .card-text  { font-size: 0.85rem; line-height: 1.85; }
+    .audio-toggle {
+        bottom: 1rem;
+        right: 1rem;
+        padding: 0.6rem 0.75rem;
+        gap: 0.25rem;
+        border-radius: 12px;
+    }
+    .audio-label { font-size: 0.7rem; }
+    .audio-sublabel { font-size: 0.6rem; }
+
+    /* 手机端 相府元宇宙 */
+    .matrix-subtitle { font-size: 0.8rem; }
+    .matrix-scroll-hint { font-size: 0.72rem; bottom: 1.5rem; }
+    .minimap-frame { width: 140px; height: 100px; border-radius: 8px; }
+    .minimap-label { font-size: 0.58rem; }
+    .minimap-crosshair::before { left: 8px; right: 8px; }
+    .minimap-crosshair::after  { top: 8px; bottom: 8px; }
 
     .about-card {
         padding: 1.5rem 1.2rem;

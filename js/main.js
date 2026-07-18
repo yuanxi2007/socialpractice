@@ -300,7 +300,371 @@
     }
 
     /* ========================================================
-       9. 结构解剖 — SVG 折线动态计算 + hover 交互
+       9. 人文表演 · Scrollytelling 滚动叙事
+       ======================================================== */
+    var scrollyVideo = document.getElementById('scrollyVideo');
+    var scrollyVideoWrap = document.getElementById('scrollyVideoWrap');
+    var scrollyOverlay = document.getElementById('scrollyOverlay');
+    var scrollyCards = document.querySelectorAll('.scrolly-card');
+    var audioToggle = document.getElementById('audioToggle');
+
+    if (scrollyVideo && scrollyCards.length > 0) {
+
+        /* ---- 视频加载完成后获取总时长 ---- */
+        var videoDuration = 480; // 默认 8 分钟
+        scrollyVideo.addEventListener('loadedmetadata', function () {
+            videoDuration = scrollyVideo.duration;
+            // 卡片4 的 data-time="end" → 设为视频末尾前 0.5 秒
+            var exitCard = document.querySelector('.scrolly-card--exit');
+            if (exitCard) {
+                exitCard.setAttribute('data-time', Math.max(0, videoDuration - 0.5));
+            }
+        });
+
+        /* ---- IntersectionObserver：检测卡片进入视口中心 ---- */
+        var currentActiveCard = null;
+
+        var cardObserver = new IntersectionObserver(function (entries) {
+            // 找出当前交叉比例最高的卡片
+            var bestEntry = null;
+            var bestRatio = 0;
+
+            entries.forEach(function (entry) {
+                // 更新内部记录
+                if (entry.isIntersecting && entry.intersectionRatio > bestRatio) {
+                    bestRatio = entry.intersectionRatio;
+                    bestEntry = entry;
+                }
+            });
+
+            if (bestEntry) {
+                var card = bestEntry.target;
+                var time = card.getAttribute('data-time');
+
+                // 切换激活卡片样式
+                if (currentActiveCard && currentActiveCard !== card) {
+                    currentActiveCard.classList.remove('active');
+                }
+                card.classList.add('active');
+                currentActiveCard = card;
+
+                // 跳转视频时间
+                var targetTime = parseFloat(time);
+                if (!isNaN(targetTime) && Math.abs(scrollyVideo.currentTime - targetTime) > 0.8) {
+                    scrollyVideo.currentTime = targetTime;
+                }
+
+                // 卡片4：加深遮罩
+                if (card.classList.contains('scrolly-card--exit')) {
+                    scrollyOverlay.classList.add('darken');
+                } else {
+                    scrollyOverlay.classList.remove('darken');
+                }
+            }
+        }, {
+            threshold: [0, 0.3, 0.5, 0.7, 0.9],
+            rootMargin: '-20% 0px -20% 0px'
+        });
+
+        // 观察所有卡片
+        scrollyCards.forEach(function (card) {
+            cardObserver.observe(card);
+        });
+
+        /* ---- 音频开关 ---- */
+        if (audioToggle) {
+            audioToggle.addEventListener('click', function () {
+                if (scrollyVideo.muted) {
+                    // 开启声音
+                    scrollyVideo.muted = false;
+                    audioToggle.classList.add('unmuted');
+                    audioToggle.querySelector('.audio-label').textContent = '关闭原声';
+                } else {
+                    // 关闭声音
+                    scrollyVideo.muted = true;
+                    audioToggle.classList.remove('unmuted');
+                    audioToggle.querySelector('.audio-label').textContent = '开启原声';
+                }
+            });
+        }
+
+        /* ---- 确保视频在视口内时持续播放 ---- */
+        var sectionObserver = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                    if (scrollyVideo.paused) {
+                        scrollyVideo.play().catch(function () {});
+                    }
+                } else {
+                    // 离开板块时暂停以节省资源
+                    scrollyVideo.pause();
+                }
+            });
+        }, { threshold: 0.05 });
+
+        if (scrollyVideoWrap) {
+            sectionObserver.observe(scrollyVideoWrap);
+        }
+    }
+
+    /* ========================================================
+       9.5 相府元宇宙 — GSAP ScrollTrigger 时空跃迁 + Minimap 联动
+       ======================================================== */
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+        gsap.registerPlugin(ScrollTrigger);
+
+        var matrixViewport = document.getElementById('matrixViewport');
+        var matrixMinimap = document.getElementById('matrixMinimap');
+        var matrixPanorama = document.getElementById('matrixPanorama');
+
+        if (matrixViewport && matrixMinimap) {
+
+            /* ---- ScrollTrigger 四阶段动画（含 onUpdate 控制 minimap 交互开关）---- */
+            var minimapActive = false;
+            var sectionLeft = false; // 跟踪板块是否已被离开
+            var panoramaHoverTween = null; // 追踪鼠标悬浮动画引用
+
+            var matrixTl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: '#matrix',
+                    start: 'top top',
+                    end: '+=350%',
+                    scrub: 1.5,
+                    pin: '#matrixViewport',
+                    onUpdate: function (self) {
+                        if (self.progress > 0.72 && !minimapActive && !sectionLeft) {
+                            minimapActive = true;
+                            // 清除所有强制隐藏样式，让 GSAP 时间轴控制
+                            matrixMinimap.style.visibility = '';
+                            matrixMinimap.style.opacity = '';
+                            matrixMinimap.style.pointerEvents = 'auto';
+                        } else if (self.progress <= 0.72 && minimapActive) {
+                            minimapActive = false;
+                            matrixMinimap.style.pointerEvents = 'none';
+                            // 杀死鼠标悬浮动画，避免覆写时间轴
+                            if (panoramaHoverTween) {
+                                panoramaHoverTween.kill();
+                                panoramaHoverTween = null;
+                            }
+                            // 用 gsap.set 重置全景图 —— 不 kill，不 overwrite，让时间轴继续控制
+                            if (matrixPanorama) {
+                                gsap.set(matrixPanorama, {
+                                    scale: 1,
+                                    xPercent: 0,
+                                    yPercent: 0,
+                                    transformOrigin: '50% 50%'
+                                });
+                            }
+                        }
+                    }
+                }
+            });
+
+            // 阶段〇：深色背景 + 标题 → 卫星图从暗色中渐现
+            matrixTl
+                .fromTo('.matrix-satellite', {
+                    opacity: 0,
+                    scale: 1.06
+                }, {
+                    opacity: 1,
+                    scale: 1,
+                    duration: 0.7,
+                    ease: 'power2.out'
+                })
+
+            // 标题在卫星图亮起后微微淡化但仍可见
+                .to(['#matrixHeader', '#matrixScrollHint'], {
+                    opacity: 0.2,
+                    duration: 0.4
+                }, '-=0.2')
+
+            // 阶段一：卫星图完整呈现后 → 旅游地图叠层浮现
+                .to('#matrixMapOverlay', {
+                    opacity: 1,
+                    duration: 0.8,
+                    ease: 'power1.inOut'
+                })
+
+            // 阶段二：镜头坠入 — 卫星图+地图 放大5倍并淡出，全景图 从1.5倍缩小到1并淡入
+                .to(['.matrix-satellite', '#matrixMapOverlay'], {
+                    scale: 5,
+                    opacity: 0,
+                    duration: 1,
+                    ease: 'power2.in'
+                }, 'zoom')
+                .fromTo('#matrixPanorama', {
+                    scale: 1.5,
+                    opacity: 0
+                }, {
+                    scale: 1,
+                    opacity: 1,
+                    duration: 1,
+                    ease: 'power2.out'
+                }, 'zoom+=0.12')
+                .to(['#matrixHeader', '#matrixScrollHint'], {
+                    opacity: 0,
+                    duration: 0.25
+                }, 'zoom+=0.08')
+
+            // 阶段三：全景锁定为背景，旅游地图缩小飞入右下角成为雷达小地图
+                .fromTo('#matrixMinimap', {
+                    scale: 3,
+                    opacity: 0
+                }, {
+                    scale: 1,
+                    opacity: 1,
+                    duration: 1.3,
+                    ease: 'back.out(1.4)'
+                }, 'minimap')
+
+            /* ---- Minimap 鼠标联动全景图（IDW 插值映射）---- */
+            var minimapFrame = matrixMinimap.querySelector('.minimap-frame');
+            if (minimapFrame && matrixPanorama) {
+                var ZOOM_LEVEL = 1.5; // 全景放大倍数
+
+                // 4 个基准锚点：minimap坐标(0~1) → 全景图焦点(0~1)
+                // 透视关系约逆时针旋转90°，线性映射会错位，用 IDW 插值解决
+                var anchorPoints = [
+                    { map: {x: 0.88, y: 0.18}, pan: {x: 0.15, y: 0.35} },  // A: 地图右上城楼 → 全景左上城楼
+                    { map: {x: 0.85, y: 0.88}, pan: {x: 0.68, y: 0.22} },  // B: 地图右下城楼 → 全景右上城楼
+                    { map: {x: 0.28, y: 0.82}, pan: {x: 0.90, y: 0.70} },  // C: 御书楼大道 → 全景右侧中下部
+                    { map: {x: 0.55, y: 0.55}, pan: {x: 0.50, y: 0.55} }   // D: 中心院落
+                ];
+
+                /**
+                 * IDW（反距离加权）插值映射
+                 * 距离越近的锚点权重越大，保证在锚点处映射精确
+                 */
+                function calculatePanPosition(mx, my) {
+                    var totalWeight = 0;
+                    var panX = 0, panY = 0;
+
+                    for (var i = 0; i < anchorPoints.length; i++) {
+                        var dx = mx - anchorPoints[i].map.x;
+                        var dy = my - anchorPoints[i].map.y;
+                        // 平方距离加权 —— 更贴近锚点，过渡更锐利
+                        var distSq = dx * dx + dy * dy;
+                        var weight = 1 / Math.max(distSq, 0.000001);
+
+                        panX += anchorPoints[i].pan.x * weight;
+                        panY += anchorPoints[i].pan.y * weight;
+                        totalWeight += weight;
+                    }
+
+                    return {
+                        x: panX / totalWeight,
+                        y: panY / totalWeight
+                    };
+                }
+
+                minimapFrame.addEventListener('mousemove', function (e) {
+                    if (!minimapActive) return;
+
+                    var rect = this.getBoundingClientRect();
+                    var mx = (e.clientX - rect.left) / rect.width;
+                    var my = (e.clientY - rect.top) / rect.height;
+
+                    // IDW 插值计算全景图焦点坐标
+                    var focus = calculatePanPosition(mx, my);
+
+                    // 焦点映射为全景图偏移量
+                    var offsetX = (0.5 - focus.x) * (ZOOM_LEVEL - 1) * 100;
+                    var offsetY = (0.5 - focus.y) * (ZOOM_LEVEL - 1) * 100;
+
+                    // 保存引用：先 kill 旧动画，再创建新的（只影响自己的悬浮动画，不伤时间轴）
+                    if (panoramaHoverTween) {
+                        panoramaHoverTween.kill();
+                    }
+                    panoramaHoverTween = gsap.to(matrixPanorama, {
+                        scale: ZOOM_LEVEL,
+                        xPercent: offsetX,
+                        yPercent: offsetY,
+                        transformOrigin: '50% 50%',
+                        duration: 0.5,
+                        ease: 'power2.out',
+                        overwrite: 'auto'
+                    });
+                });
+
+                minimapFrame.addEventListener('mouseleave', function () {
+                    if (!minimapActive) return;
+
+                    // 先 kill 悬浮动画再回中，仅覆盖自己的 hover tween
+                    if (panoramaHoverTween) {
+                        panoramaHoverTween.kill();
+                        panoramaHoverTween = null;
+                    }
+                    gsap.to(matrixPanorama, {
+                        scale: 1,
+                        xPercent: 0,
+                        yPercent: 0,
+                        transformOrigin: '50% 50%',
+                        duration: 0.8,
+                        ease: 'power3.out',
+                        overwrite: 'auto'
+                    });
+                });
+            }
+
+            /* ---- 离开/重进板块时控制 minimap ---- */
+            var matrixSection = document.getElementById('matrix');
+            if (matrixSection) {
+                var matrixLeaveObserver = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (entry) {
+                        if (!entry.isIntersecting) {
+                            // 板块离开视口 → 强制隐藏 minimap
+                            sectionLeft = true;
+                            minimapActive = false;
+                            // 多重保障隐藏：visibility + opacity + pointerEvents
+                            matrixMinimap.style.visibility = 'hidden';
+                            matrixMinimap.style.opacity = '0';
+                            matrixMinimap.style.pointerEvents = 'none';
+                            // 杀死鼠标悬浮动画
+                            if (panoramaHoverTween) {
+                                panoramaHoverTween.kill();
+                                panoramaHoverTween = null;
+                            }
+                            // 用 gsap.set 重置全景图 — 不伤时间轴
+                            if (matrixPanorama) {
+                                gsap.set(matrixPanorama, {
+                                    scale: 1,
+                                    xPercent: 0,
+                                    yPercent: 0,
+                                    transformOrigin: '50% 50%'
+                                });
+                            }
+                        } else {
+                            // 板块重新进入视口 → 清除强制隐藏，让时间轴 onUpdate 决定何时显示
+                            sectionLeft = false;
+                            matrixMinimap.style.visibility = '';
+                            // 注意：不在此处清 opacity —— 由 onUpdate 在进度 >72% 时清
+                            // 这样避免了"刚进板块 minimap 就闪现"的问题
+                        }
+                    });
+                }, { threshold: 0.1 });
+                matrixLeaveObserver.observe(matrixSection);
+            }
+        }
+    } else {
+        // GSAP 未加载时的降级方案：所有图层正常显示
+        console.warn('GSAP/ScrollTrigger 未加载，相府元宇宙动画跳过。请检查网络连接。');
+        // 降级：确保图层可见
+        var fallbackLayers = ['.matrix-satellite', '#matrixMapOverlay', '#matrixPanorama'];
+        fallbackLayers.forEach(function (sel) {
+            var el = document.querySelector(sel);
+            if (el) {
+                el.style.opacity = '1';
+                el.style.transform = 'none';
+            }
+        });
+        var header = document.getElementById('matrixHeader');
+        var hint = document.getElementById('matrixScrollHint');
+        if (header) header.style.opacity = '1';
+        if (hint) hint.style.opacity = '1';
+    }
+
+    /* ========================================================
+       10. 结构解剖 — SVG 折线动态计算 + hover 交互
        ======================================================== */
     var anatomySvg = document.getElementById('anatomySvg');
     var anatomyImageArea = document.getElementById('anatomyImageArea');
@@ -447,7 +811,7 @@
     }
 
     /* ========================================================
-       10. 放大镜透镜（斗拱图片 mousemove 跟踪）
+       11. 放大镜透镜（斗拱图片 mousemove 跟踪）
        ======================================================== */
     var anatomyLens = document.getElementById('anatomyLens');
     var anatomyImgEl = document.getElementById('anatomyImage');
@@ -493,11 +857,11 @@
     }
 
     /* ========================================================
-       11. 滚动动画（Intersection Observer 通用）
+       12. 滚动动画（Intersection Observer 通用）
        ======================================================== */
     var revealElements = document.querySelectorAll(
-        '.section-header, .origin-content, .detail-item, ' +
-        '.reflection-card, .about-card, .performance-layout, .performance-stills, ' +
+        '.section-header, .origin-content, ' +
+        '.reflection-card, .about-card, ' +
         '.scroll-mount, .hotspot-caption, .hotspot-thumbnails, ' +
         '.blueprint-frame, .blueprint-caption, ' +
         '.scroll-painting-layout, ' +
@@ -513,12 +877,6 @@
     var reflectionCards = document.querySelectorAll('.reflection-card');
     reflectionCards.forEach(function (card, i) {
         card.classList.add('reveal-delay-' + (Math.min(i, 3) + 1));
-    });
-
-    // 为 detail-item 添加错开延迟
-    var detailItems = document.querySelectorAll('.detail-item');
-    detailItems.forEach(function (item, i) {
-        item.classList.add('reveal-delay-' + ((i % 2) + 1));
     });
 
     if ('IntersectionObserver' in window) {
@@ -546,7 +904,7 @@
     }
 
     /* ========================================================
-       8. 初始化
+       13. 初始化
        ======================================================== */
     updateNavbar();
     updateBackToTop();
